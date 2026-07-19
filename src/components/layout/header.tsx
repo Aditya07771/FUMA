@@ -29,7 +29,7 @@ export function Header({ user, highRiskCount = 0 }: HeaderProps) {
 
         {/* Left — logo + nav */}
         <div className="flex items-center gap-6">
-          <Link href="/dashboard" className="text-xl font-bold tracking-tight">
+          <Link href="/" className="text-xl font-bold tracking-tight">
             FUME
           </Link>
           <nav className="hidden md:flex gap-5 text-sm">

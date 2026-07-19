@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       data: {
         llmProvider: result.provider,
         promptVersion: result.promptVersion,
-        llmOutputRaw: result.rawJson,
+        llmOutputRaw: JSON.stringify(result.output),
         tokensUsed: result.tokensUsed,
         latencyMs: result.latencyMs,
         status: "COMPLETE",

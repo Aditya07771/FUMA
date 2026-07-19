@@ -37,6 +37,9 @@ export default async function LandingPage() {
             <a href="#trust" className="hover:text-foreground transition-colors">
               AI Safety
             </a>
+            <a href="https://github.com/Aditya07771/FUMA" className="hover:text-foreground transition-colors">
+              Docs
+            </a>
           </nav>
 
           {/* CTA */}
