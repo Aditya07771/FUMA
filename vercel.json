@@ -1,0 +1,13 @@
+{
+  "buildCommand": "prisma generate && next build",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "DIRECT_URL": "@direct_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url",
+    "GOOGLE_AI_API_KEY": "@google_ai_api_key",
+    "LLM_PROVIDER": "gemini",
+    "DEMO_EMAIL": "demo@fume.ai",
+    "DEMO_PASSWORD": "demo1234"
+  }
+}
