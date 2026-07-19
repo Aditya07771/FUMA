@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { analysisOutputSchema } from "@/lib/ai/schema";
+import { compactAnalysisSchema } from "@/lib/ai/compactSchema";
+import { normalizeAnalysisOutput } from "@/lib/ai/normalize";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -66,16 +68,24 @@ export default async function AnalysisPage({
       throw new Error("No LLM output stored");
     }
     const raw = JSON.parse(analysis.llmOutputRaw);
+    
+    // First try the new AnalysisOutput format
     const validated = analysisOutputSchema.safeParse(raw);
     if (validated.success) {
       output = validated.data;
     } else {
-      // Log validation errors but try to use the raw data anyway
-      console.error("[analysis-page] Schema validation failed for", id);
-      console.error(JSON.stringify(validated.error.flatten(), null, 2));
-      // Attempt to use the raw parsed object directly as a fallback
-      output = raw;
-      parseError = "Some fields may be missing — schema validation failed.";
+      // Fallback for older records stored in CompactAnalysis format
+      const compactValidated = compactAnalysisSchema.safeParse(raw);
+      if (compactValidated.success) {
+        output = normalizeAnalysisOutput(compactValidated.data, analysis.clientName, analysis.weekLabel);
+      } else {
+        // Log validation errors but try to use the raw data anyway
+        console.error("[analysis-page] Schema validation failed for", id);
+        console.error(JSON.stringify(validated.error.flatten(), null, 2));
+        // Attempt to use the raw parsed object directly as a fallback
+        output = raw;
+        parseError = "Some fields may be missing — schema validation failed.";
+      }
     }
   } catch (err) {
     console.error("[analysis-page] JSON parse failed for", id, err);
