@@ -1,41 +1,48 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+node_modules
 /.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+.pnp.js
 
-# testing
-/coverage
-
-# next.js
 /.next/
 /out/
+build
 
-# production
-/build
+# Ignore all .env files so you don't leak database credentials or API keys (Google AI, Groq, etc.)
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# misc
+
+# If you ever switch to SQLite for local dev, this prevents committing the DB
+*.db
+*.db-journal
+
+*.tsbuildinfo
+next-env.d.ts
+
+/dist
+/coverage
+
+
 .DS_Store
 *.pem
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
 
-# debug
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
 .vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
