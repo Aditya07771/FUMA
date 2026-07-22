@@ -8,7 +8,7 @@ Built for the **FUME GenAI Product Intern** assignment.
 
 ## Demo
 
-**Live app →** `your-deployment-url.vercel.app`
+**Live app →** `https://fume-client-intelligence-ten.vercel.app/`
 
 **Demo login →** `demo@fume.ai` / `demo1234`
 
